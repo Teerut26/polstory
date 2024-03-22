@@ -35,7 +35,7 @@ export default async function handler(
     const exif = await exiftool.read(image_path)
     console.log(exif);
 
-    let wrh = image.width / image.height
+    const wrh = image.width / image.height
     let newWidth = canvas.width * zoomFactor
     let newHeight = newWidth / wrh
     if (newHeight > canvas.height) {
@@ -43,8 +43,8 @@ export default async function handler(
         newWidth = newHeight * wrh;
     }
 
-    var xOffset = newWidth < canvas.width ? ((canvas.width - newWidth) / 2) : 0;
-    var yOffset = newHeight < canvas.height ? ((canvas.height - newHeight) / 2) : 0;
+    const xOffset = newWidth < canvas.width ? ((canvas.width - newWidth) / 2) : 0;
+    const yOffset = newHeight < canvas.height ? ((canvas.height - newHeight) / 2) : 0;
 
     ctx.drawImage(image, xOffset, yOffset, newWidth, newHeight)
 
