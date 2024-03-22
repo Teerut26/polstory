@@ -1,8 +1,8 @@
 ##### DEPENDENCIES
 
 FROM --platform=linux/amd64 node:20-alpine AS deps
+RUN apk update && apk add build-base g++ cairo-dev pango-dev giflib-dev
 RUN apk add --no-cache libc6-compat openssl
-RUN apk add build-base cairo-dev pango-dev jpeg-dev giflib-dev librsvg-dev
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
