@@ -37,7 +37,13 @@ RUN \
 ##### RUNNER
 
 FROM node:20-alpine AS runner
-RUN apk add  --no-cache cairo pango
+RUN apk add --no-cache \
+    build-base \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
 WORKDIR /app
 
 ENV NODE_ENV production
