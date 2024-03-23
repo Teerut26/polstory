@@ -15,4 +15,4 @@ jobs:
       - name: Push the Docker image
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/polstory:$(date +%s)
+          docker push ${{ secrets.DOCKER_USERNAME }}/polstory:latest
