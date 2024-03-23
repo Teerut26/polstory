@@ -1,6 +1,7 @@
 ##### DEPENDENCIES
 
 FROM node:20-alpine AS deps
+RUN apk add --no-cache build-base autoconf bash python krb5-dev imagemagick libjpeg cairo-dev imagemagick icu-dev jpeg-dev libpng-dev pango-dev giflib-dev gd-dev
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
@@ -36,22 +37,7 @@ RUN \
 ##### RUNNER
 
 FROM node:20-alpine AS runner
-RUN apk add  --update --no-cache \
-        build-base \
-        autoconf \
-        bash \
-        python \
-        krb5-dev \
-        imagemagick \
-        libjpeg \
-        cairo-dev \
-        imagemagick \
-        icu-dev \
-        jpeg-dev \
-        libpng-dev \
-        pango-dev \
-        giflib-dev \
-        gd-dev
+RUN apk add --no-cache build-base autoconf bash python krb5-dev imagemagick libjpeg cairo-dev imagemagick icu-dev jpeg-dev libpng-dev pango-dev giflib-dev gd-dev
 WORKDIR /app
 
 ENV NODE_ENV production
