@@ -1,6 +1,7 @@
 ##### DEPENDENCIES
 
 FROM --platform=linux/amd64 node:20-alpine AS deps
+RUN apk update && apk add build-base g++ cairo-dev pango-dev giflib-dev
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
@@ -36,7 +37,7 @@ RUN \
 ##### RUNNER
 
 FROM --platform=linux/amd64 gcr.io/distroless/nodejs20-debian12 AS runner
-RUN apk update && apk add build-base g++ cairo-dev pango-dev giflib-dev
+RUN apk add  --no-cache cairo pango
 WORKDIR /app
 
 ENV NODE_ENV production
