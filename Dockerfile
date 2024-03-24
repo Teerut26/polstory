@@ -65,15 +65,20 @@
 
 FROM node:20.11.1
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
-RUN yarn
-
-RUN yarn add sharp --ignore-engines
+RUN \
+    if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+    elif [ -f package-lock.json ]; then npm ci; \
+    elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+    else echo "Lockfile not found." && exit 1; \
+    fi
 
 COPY . .
+
+RUN yarn install
 
 RUN yarn build
 
