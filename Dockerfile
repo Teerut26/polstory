@@ -71,6 +71,8 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 
+RUN yarn add sharp --ignore-engines
+
 COPY . .
 
 RUN yarn build
