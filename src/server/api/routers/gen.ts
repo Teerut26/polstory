@@ -41,14 +41,17 @@ export const genRouter = createTRPCRouter({
         input.imagefile.replace(/^data:image\/\w+;base64,/, ""),
         "base64",
       );
+
+      const filename = `temp-${new Date().getTime()}.jpg`;
+
       await promises.writeFile(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
         imageBuffer,
       );
 
       const exiftool = new ExifTool({ taskTimeoutMillis: 5000 });
       const exif = await exiftool.read(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
       );
 
       console.log(
@@ -60,14 +63,14 @@ export const genRouter = createTRPCRouter({
         Jimp.decoders["image/jpeg"] = (data) =>
           JPEG.decode(data, { maxMemoryUsageInMB: 1024 });
         const jimp = await Jimp.read(
-          join(process.cwd(), "/src/assets/temp.jpg"),
+          join(process.cwd(), "/src/assets/" + filename),
         );
         jimp.rotate(input.rotate, true);
-        await jimp.writeAsync(join(process.cwd(), "/src/assets/temp.jpg"));
+        await jimp.writeAsync(join(process.cwd(), "/src/assets/" + filename));
       }
 
       const image = await loadImage(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
       );
 
       const wrh = image.width / image.height;
@@ -108,13 +111,13 @@ export const genRouter = createTRPCRouter({
           yOffset + newHeight + baseGap + 45 * scale,
         );
       }
-      await promises.unlink(join(process.cwd(), "/src/assets/temp.jpg"));
+      await promises.unlink(join(process.cwd(), "/src/assets/" + filename));
       return {
         image: canvas.toDataURL(),
         size: {
           wieght: canvas.width,
           height: canvas.height,
-        }
+        },
       };
     }),
   genImagePost: publicProcedure
@@ -150,14 +153,17 @@ export const genRouter = createTRPCRouter({
         input.imagefile.replace(/^data:image\/\w+;base64,/, ""),
         "base64",
       );
+
+      const filename = `temp-${new Date().getTime()}.jpg`;
+
       await promises.writeFile(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
         imageBuffer,
       );
 
       const exiftool = new ExifTool({ taskTimeoutMillis: 5000 });
       const exif = await exiftool.read(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
       );
 
       console.log(
@@ -169,14 +175,14 @@ export const genRouter = createTRPCRouter({
         Jimp.decoders["image/jpeg"] = (data) =>
           JPEG.decode(data, { maxMemoryUsageInMB: 1024 });
         const jimp = await Jimp.read(
-          join(process.cwd(), "/src/assets/temp.jpg"),
+          join(process.cwd(), "/src/assets/" + filename),
         );
         jimp.rotate(input.rotate, true);
-        await jimp.writeAsync(join(process.cwd(), "/src/assets/temp.jpg"));
+        await jimp.writeAsync(join(process.cwd(), "/src/assets/" + filename));
       }
 
       const image = await loadImage(
-        join(process.cwd(), "/src/assets/temp.jpg"),
+        join(process.cwd(), "/src/assets/" + filename),
       );
 
       const maxHeight = 1400 * scale;
@@ -218,7 +224,7 @@ export const genRouter = createTRPCRouter({
           yOffset + newHeight + baseGap + 45 * scale,
         );
       }
-      await promises.unlink(join(process.cwd(), "/src/assets/temp.jpg"));
+      await promises.unlink(join(process.cwd(), "/src/assets/" + filename));
       return {
         image: canvas.toDataURL(),
         size: {
