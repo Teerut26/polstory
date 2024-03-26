@@ -63,7 +63,8 @@
 # COPY --from=builder /app/.next/standalone ./
 # COPY --from=builder /app/.next/static ./.next/static
 
-FROM node:20.11.1
+# FROM node:20.11.1
+FROM node:20-alpine
 
 WORKDIR /app
 
