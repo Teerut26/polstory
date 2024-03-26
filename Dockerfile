@@ -64,14 +64,8 @@
 # COPY --from=builder /app/.next/static ./.next/static
 
 # FROM node:20.11.1
-FROM node:20.11.1-alpine
-RUN apk add --no-cache \
-    build-base \
-    g++ \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    giflib-dev
+FROM node:20.11.1
+
 WORKDIR /app
 
 COPY . /app
