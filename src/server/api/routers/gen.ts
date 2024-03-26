@@ -109,7 +109,13 @@ export const genRouter = createTRPCRouter({
         );
       }
       await promises.unlink(join(process.cwd(), "/src/assets/temp.jpg"));
-      return canvas.toDataURL();
+      return {
+        image: canvas.toDataURL(),
+        size: {
+          wieght: canvas.width,
+          height: canvas.height,
+        }
+      };
     }),
   genImagePost: publicProcedure
     .input(
@@ -213,6 +219,12 @@ export const genRouter = createTRPCRouter({
         );
       }
       await promises.unlink(join(process.cwd(), "/src/assets/temp.jpg"));
-      return canvas.toDataURL();
+      return {
+        image: canvas.toDataURL(),
+        size: {
+          wieght: canvas.width,
+          height: canvas.height,
+        },
+      };
     }),
 });
